@@ -1,0 +1,316 @@
+[
+    {
+        "id": "2816c1590d040bb0",
+        "type": "tab",
+        "label": "Power Bambu da Cultura",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6aa2d6f2ea425120",
+        "type": "http in",
+        "z": "2816c1590d040bb0",
+        "name": "",
+        "url": "/bambu/data-in",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "c2fb66cd77bf04c7",
+                "ef89ee62b3eb17c7",
+                "b591b0734a7291e1",
+                "d35ed9897f89b021",
+                "4782db548dc81b23",
+                "2de0be7751e80934"
+            ]
+        ]
+    },
+    {
+        "id": "c2fb66cd77bf04c7",
+        "type": "debug",
+        "z": "2816c1590d040bb0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ef89ee62b3eb17c7",
+        "type": "http response",
+        "z": "2816c1590d040bb0",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 440,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6fb72886d1d9acd9",
+        "type": "ui_gauge",
+        "z": "2816c1590d040bb0",
+        "name": "Temperatura",
+        "group": "e14da0ad1d7b21c5",
+        "order": 5,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Temperatura Ambiente",
+        "label": "",
+        "format": "{{value}}°C",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b591b0734a7291e1",
+        "type": "function",
+        "z": "2816c1590d040bb0",
+        "name": "Temperatura",
+        "func": "msg.payload = msg.payload.temperatura;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 80,
+        "wires": [
+            [
+                "6fb72886d1d9acd9"
+            ]
+        ]
+    },
+    {
+        "id": "d35ed9897f89b021",
+        "type": "function",
+        "z": "2816c1590d040bb0",
+        "name": "Umidade do ar",
+        "func": "msg.payload = msg.payload.umidade;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 120,
+        "wires": [
+            [
+                "b77e6f1555af801a"
+            ]
+        ]
+    },
+    {
+        "id": "4782db548dc81b23",
+        "type": "function",
+        "z": "2816c1590d040bb0",
+        "name": "Umidade do solo",
+        "func": "msg.payload = msg.payload.valor;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "f2714350025fb3ac"
+            ]
+        ]
+    },
+    {
+        "id": "b77e6f1555af801a",
+        "type": "ui_gauge",
+        "z": "2816c1590d040bb0",
+        "name": "Umidade do ar",
+        "group": "e14da0ad1d7b21c5",
+        "order": 4,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Umidade do ar",
+        "label": "%",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 720,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fae0ea4aeaed9e13",
+        "type": "ui_gauge",
+        "z": "2816c1590d040bb0",
+        "name": "Umidade do solo",
+        "group": "e14da0ad1d7b21c5",
+        "order": 3,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Umidade do solo",
+        "label": "",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 950,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f2714350025fb3ac",
+        "type": "range",
+        "z": "2816c1590d040bb0",
+        "minin": "800",
+        "maxin": "500",
+        "minout": "0",
+        "maxout": "100",
+        "action": "scale",
+        "round": true,
+        "property": "payload",
+        "name": "",
+        "x": 740,
+        "y": 160,
+        "wires": [
+            [
+                "fae0ea4aeaed9e13",
+                "1b77263c58ca34eb"
+            ]
+        ]
+    },
+    {
+        "id": "1b77263c58ca34eb",
+        "type": "ui_chart",
+        "z": "2816c1590d040bb0",
+        "name": "Histórico de umidade",
+        "group": "e14da0ad1d7b21c5",
+        "order": 2,
+        "width": "12",
+        "height": "6",
+        "label": "Histórico de umidade do solo",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 960,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2de0be7751e80934",
+        "type": "function",
+        "z": "2816c1590d040bb0",
+        "name": "Última coleta",
+        "func": "msg.payload = new Date().toLocaleString(\"en-US\", {timeZone: \"America/Sao_Paulo\"});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "392abe695e981fc0"
+            ]
+        ]
+    },
+    {
+        "id": "392abe695e981fc0",
+        "type": "ui_text",
+        "z": "2816c1590d040bb0",
+        "group": "e14da0ad1d7b21c5",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "name": "Última coleta",
+        "label": "Última coleta",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 730,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e14da0ad1d7b21c5",
+        "type": "ui_group",
+        "name": "Ambiente",
+        "tab": "82df7a3d2e95a1a6",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "82df7a3d2e95a1a6",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
