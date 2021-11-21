@@ -1,21 +1,14 @@
 [
     {
-        "id": "2816c1590d040bb0",
-        "type": "tab",
-        "label": "Power Bambu da Cultura",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "6aa2d6f2ea425120",
         "type": "http in",
         "z": "2816c1590d040bb0",
-        "name": "",
+        "name": "entrada de dados de medição",
         "url": "/bambu/data-in",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
+        "x": 140,
         "y": 40,
         "wires": [
             [
@@ -40,8 +33,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 320,
-        "y": 260,
+        "x": 450,
+        "y": 240,
         "wires": []
     },
     {
@@ -132,7 +125,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
                 "f2714350025fb3ac"
@@ -189,8 +182,8 @@
         "seg1": "",
         "seg2": "",
         "className": "",
-        "x": 950,
-        "y": 140,
+        "x": 970,
+        "y": 180,
         "wires": []
     },
     {
@@ -204,13 +197,14 @@
         "action": "scale",
         "round": true,
         "property": "payload",
-        "name": "",
-        "x": 740,
-        "y": 160,
+        "name": "percentual de umidade",
+        "x": 700,
+        "y": 200,
         "wires": [
             [
                 "fae0ea4aeaed9e13",
-                "1b77263c58ca34eb"
+                "1b77263c58ca34eb",
+                "c5a21a4f8cb334bf"
             ]
         ]
     },
@@ -252,8 +246,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 960,
-        "y": 180,
+        "x": 980,
+        "y": 220,
         "wires": [
             []
         ]
@@ -270,7 +264,7 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 200,
+        "y": 160,
         "wires": [
             [
                 "392abe695e981fc0"
@@ -291,13 +285,70 @@
         "layout": "row-left",
         "className": "",
         "x": 730,
-        "y": 200,
+        "y": 160,
         "wires": []
+    },
+    {
+        "id": "0e7e1badbb61117a",
+        "type": "slack",
+        "z": "2816c1590d040bb0",
+        "name": "posta no canal do Slack",
+        "channelURL": "",
+        "username": "",
+        "emojiIcon": "",
+        "channel": "",
+        "x": 990,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "c5a21a4f8cb334bf",
+        "type": "switch",
+        "z": "2816c1590d040bb0",
+        "name": "umidade abaixo de 40%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "40",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 280,
+        "wires": [
+            [
+                "fdd6a8cd4136b226"
+            ]
+        ]
+    },
+    {
+        "id": "fdd6a8cd4136b226",
+        "type": "function",
+        "z": "2816c1590d040bb0",
+        "name": "agrega mensagem",
+        "func": "msg.payload = \"SOCORRO!!!\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 320,
+        "wires": [
+            [
+                "0e7e1badbb61117a"
+            ]
+        ]
     },
     {
         "id": "e14da0ad1d7b21c5",
         "type": "ui_group",
-        "name": "Ambiente",
+        "name": "Bambu da Cultura",
         "tab": "82df7a3d2e95a1a6",
         "order": 1,
         "disp": true,
@@ -308,7 +359,7 @@
     {
         "id": "82df7a3d2e95a1a6",
         "type": "ui_tab",
-        "name": "Home",
+        "name": "Way2Labs Dashboards",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
